@@ -10,12 +10,17 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject prefabBullet;
     [SerializeField] private float bulletForce = 20f;
+    [SerializeField] private float shootTimer = 0f;
 
     // Update is called once per frame
     private void Update()
     {
         HandleAiming();
         HandleShooting();
+        if (shootTimer > 0)
+        {
+            shootTimer -= Time.deltaTime;
+        }
     }
 
     private void HandleAiming()
@@ -29,11 +34,13 @@ public class PlayerShooting : MonoBehaviour
 
     private void HandleShooting()
     {
-        if (Input.GetButtonDown("Fire1"))
+        //if (Input.GetButtonDown("Fire1"))
+        if (Input.GetMouseButton(0) && shootTimer <= 0)
         {
             GameObject bullet = Instantiate(prefabBullet, firePoint.position, firePoint.rotation);
             Rigidbody2D rigidBody2D = bullet.GetComponent<Rigidbody2D>();
             rigidBody2D.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+            shootTimer = 0.35f;
         }
     }
 
