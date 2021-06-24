@@ -7,25 +7,23 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private float enemyHealth;
     [SerializeField] private GameObject deathEffect;
 
-    //[SerializeField] private float distance;
-    //[SerializeField] private Transform player;
-    //[SerializeField] private float enemyDamage;
-    //[SerializeField] private PlayerStats playerStats;
+    [SerializeField] private float enemyDamage = 2f;
+    [SerializeField] private float enemyAttackSpeed = 1f;
+    [SerializeField] private float canAttack;
 
     // Start is called before the first frame update
     void Start()
     {
-        //player = GameObject.FindGameObjectWithTag("Player").transform;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         EnemyDeath();
-        //EnemyMeleeAttack();
     }
 
-    private void EnemyReceiveDamage(float playerDamage)
+    public void EnemyReceiveDamage(float playerDamage)
     {
         enemyHealth -= playerDamage;
     }
@@ -40,13 +38,19 @@ public class EnemyStats : MonoBehaviour
         }
     }
 
-    //private void EnemyMeleeAttack()
-    //{
-    //    distance = Vector3.Distance(player.position, transform.position);
-
-    //    if(distance <= 1.5f)
-    //    {
-    //        other.transform.SendMessage("PlayerReceiveDamage", enemyDamage);
-    //    }
-    //}
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (enemyAttackSpeed <= canAttack)
+            {
+                other.gameObject.GetComponent<PlayerStats>().UpdateHealth(-enemyDamage);
+                canAttack = 0f;
+            }
+            else
+            {
+                canAttack += Time.deltaTime;
+            }
+        }
+    }
 }

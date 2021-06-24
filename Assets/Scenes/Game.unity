@@ -871,6 +871,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fc58b222d83264b94d1ee26782b513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: 0
+  maxPlayerHealth: 5
+  deathEffect: {fileID: 3034201595721637552, guid: 9b7539eb5deac624ba89a65443079e4b, type: 3}
 --- !u!1 &720268487
 GameObject:
   m_ObjectHideFlags: 0
