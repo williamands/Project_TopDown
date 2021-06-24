@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -12,18 +13,26 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float bulletForce = 20f;
     [SerializeField] private float shootTimer = 0f;
 
+    [SerializeField] private int maxAmmo = 8;
+    [SerializeField] private int currentAmmo;
+    [SerializeField] private float reloadTime = 1.5f;
+    private bool isReloading = false;
+
+    private void Start()
+    {
+        currentAmmo = maxAmmo;
+    }
+
     // Update is called once per frame
     private void Update()
     {
-        HandleAiming();
-        HandleShooting();
-        if (shootTimer > 0)
-        {
-            shootTimer -= Time.deltaTime;
-        }
+        Aim();
+        Shoot();
+        Ammo();
+        PressReload();
     }
 
-    private void HandleAiming()
+    private void Aim()
     {
         Vector3 mousePosition = GetMouseWorldPosition();
 
@@ -32,15 +41,50 @@ public class PlayerShooting : MonoBehaviour
         aimTransform.eulerAngles = new Vector3(0, 0, angle);
     }
 
-    private void HandleShooting()
+    private void Shoot()
     {
-        //if (Input.GetButtonDown("Fire1"))
-        if (Input.GetMouseButton(0) && shootTimer <= 0)
+        if (Input.GetMouseButton(0) && shootTimer <= 0 && currentAmmo > 0)
         {
+            currentAmmo--;
             GameObject bullet = Instantiate(prefabBullet, firePoint.position, firePoint.rotation);
             Rigidbody2D rigidBody2D = bullet.GetComponent<Rigidbody2D>();
             rigidBody2D.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
             shootTimer = 0.35f;
+        }
+
+        if (shootTimer > 0)
+        {
+            shootTimer -= Time.deltaTime;
+        }
+    }
+
+    private void Ammo()
+    {
+        if (isReloading)
+        {
+            return;
+        }
+        
+        if(currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
+    private IEnumerator Reload()
+    {
+        isReloading = true;
+        Debug.Log("Reloading...");
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = maxAmmo;
+        isReloading = false;
+    }
+
+    private void PressReload()
+    {
+        if (Input.GetKeyDown("r"))
+        {
+            StartCoroutine(Reload());
         }
     }
 
