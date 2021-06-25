@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealth: 4
   deathEffect: {fileID: 3034201595721637552, guid: 9b7539eb5deac624ba89a65443079e4b, type: 3}
-  enemyDamage: 2
+  enemyDamage: 1
   enemyAttackSpeed: 1
   canAttack: 0
 --- !u!1 &1945962981040817676

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private int currentAmmo;
     [SerializeField] private float reloadTime = 1.5f;
     private bool isReloading = false;
+
+    public TMP_Text ammoUI;
 
     private void Start()
     {
@@ -56,6 +59,8 @@ public class PlayerShooting : MonoBehaviour
         {
             shootTimer -= Time.deltaTime;
         }
+
+        ammoUI.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
     }
 
     private void Ammo()

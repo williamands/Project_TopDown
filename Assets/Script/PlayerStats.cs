@@ -8,16 +8,20 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float maxPlayerHealth = 5f;
     [SerializeField] private GameObject deathEffect;
 
+    public HealthBar healthBar;
+
     //Start is called before the first frame update
     private void Start()
     {
         playerHealth = maxPlayerHealth;
+        healthBar.SetMaxHealth(maxPlayerHealth);
     }
 
     // Update is called once per frame
     public void UpdateHealth(float mod)
     {
         playerHealth += mod;
+        healthBar.SetHealth(playerHealth);
 
         if(playerHealth > maxPlayerHealth)
         {
