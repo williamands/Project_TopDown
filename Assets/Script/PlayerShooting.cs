@@ -2,31 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 using TMPro;
 
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private Transform aimTransform;
-
     [SerializeField] private Transform firePoint;
+
+    [Header("Bullet Settings")]
     [SerializeField] private GameObject prefabBullet;
     [SerializeField] private float bulletForce = 20f;
-    [SerializeField] private float shootTimer = 0f;
+    private float shootTimer = 0f;
 
+    [Header("Ammo Settings")]
     [SerializeField] private int maxAmmo = 8;
-    [SerializeField] private int currentAmmo;
+    private int currentAmmo;
     [SerializeField] private float reloadTime = 1.5f;
     private bool isReloading = false;
 
-    public TMP_Text ammoUI;
+    [Header("Ammo UI Settings")]
+    [SerializeField] private TMP_Text ammoUI;
+    [SerializeField] private TMP_Text reloadingUI;
 
     private void Start()
     {
         currentAmmo = maxAmmo;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         Aim();
@@ -79,9 +81,11 @@ public class PlayerShooting : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
+        reloadingUI.text = "Realoding...";
         Debug.Log("Reloading...");
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
+        reloadingUI.text = "";
         isReloading = false;
     }
 

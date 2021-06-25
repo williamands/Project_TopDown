@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    [SerializeField] private float enemyHealth;
     [SerializeField] private GameObject deathEffect;
 
-    [SerializeField] private float enemyDamage = 2f;
-    [SerializeField] private float enemyAttackSpeed = 1f;
-    [SerializeField] private float canAttack;
+    [Header("Health Settings")]
+    [SerializeField] private float enemyHealth;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    [Header("Samage Settings")]
+    [SerializeField] private float enemyDamage;
+    [SerializeField] private float enemyAttackSpeed;
+    private float canAttack;
+    
+    private void Update()
     {
         EnemyDeath();
     }
 
-    public void EnemyReceiveDamage(float playerDamage)
+    private void EnemyReceiveDamage(float playerDamage)
     {
         enemyHealth -= playerDamage;
     }

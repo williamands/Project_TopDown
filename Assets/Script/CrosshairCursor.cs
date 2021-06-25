@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class CrosshairCursor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Vector2 mouseCursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = mouseCursorPosition;

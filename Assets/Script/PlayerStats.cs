@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] private float playerHealth;
-    [SerializeField] private float maxPlayerHealth = 5f;
     [SerializeField] private GameObject deathEffect;
 
+    [Header("Health Settings")]
+    [SerializeField] private float playerHealth;
+    [SerializeField] private float maxPlayerHealth = 5f;
+    
+    [Header("Health UI Settings")]
     public HealthBar healthBar;
 
-    //Start is called before the first frame update
     private void Start()
     {
         playerHealth = maxPlayerHealth;
         healthBar.SetMaxHealth(maxPlayerHealth);
     }
 
-    // Update is called once per frame
     public void UpdateHealth(float mod)
     {
         playerHealth += mod;
