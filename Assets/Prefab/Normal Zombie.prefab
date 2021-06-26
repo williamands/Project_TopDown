@@ -165,11 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385f60586eb25de4cb2121f3ce0cb214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 4
   deathEffect: {fileID: 3034201595721637552, guid: 9b7539eb5deac624ba89a65443079e4b, type: 3}
+  enemyHealth: 4
   enemyDamage: 1
-  enemyAttackSpeed: 1
-  canAttack: 0
+  enemyAttackSpeed: 0.5
 --- !u!1 &1945962981040817676
 GameObject:
   m_ObjectHideFlags: 0

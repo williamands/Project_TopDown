@@ -13,6 +13,9 @@ public class PlayerStats : MonoBehaviour
     [Header("Health UI Settings")]
     public HealthBar healthBar;
 
+    [Header("Game Over Settings")]
+    [SerializeField] private GameObject gameOverScreen;
+
     private void Start()
     {
         playerHealth = maxPlayerHealth;
@@ -35,6 +38,7 @@ public class PlayerStats : MonoBehaviour
             Destroy(effect, 5f);
             Destroy(gameObject);
             Debug.Log("Player Died");
+            gameOverScreen.SetActive(true);
         }
     }
 }

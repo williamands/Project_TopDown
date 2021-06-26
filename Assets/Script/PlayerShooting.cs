@@ -81,8 +81,7 @@ public class PlayerShooting : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
-        reloadingUI.text = "Realoding...";
-        Debug.Log("Reloading...");
+        reloadingUI.text = "Reloading...";
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
         reloadingUI.text = "";
