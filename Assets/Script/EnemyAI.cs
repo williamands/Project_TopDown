@@ -6,8 +6,12 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private Transform target;
-    [SerializeField] private float enemySpeed = 200f;
+
+    [SerializeField] private float enemySpeed = 300f;
     [SerializeField] private float nextWaypointDistance = 3f;
+
+    [SerializeField] private Transform targetPosition;
+    [SerializeField] private int damp = 5;
 
     [SerializeField] private Path path;
     private int currentWaypoint = 0;
@@ -16,13 +20,17 @@ public class EnemyAI : MonoBehaviour
     private Seeker seeker;
     private Rigidbody2D rb;
 
-    // Start is called before the first frame update
     private void Awake()
+    {
+        target = GameObject.Find("Player").transform;
+    }
+
+    private void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
     private void UpdatePath()
@@ -35,14 +43,13 @@ public class EnemyAI : MonoBehaviour
 
     private void OnPathComplete(Path p)
     {
-        if (!path.error)
+        if (!p.error)
         {
             path = p;
             currentWaypoint = 0;
         }
     }
 
-    // Update is called once per frame
     private void FixedUpdate()
     {
         if(path == null)
@@ -70,6 +77,15 @@ public class EnemyAI : MonoBehaviour
         if(distance < nextWaypointDistance)
         {
             currentWaypoint++;
+        }
+
+        if(rb.velocity.x >= 0.01f)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else if (rb.velocity.x <= 0.01f)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 }
